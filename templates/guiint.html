@@ -1,0 +1,15 @@
+<html>
+<form action="/change" method="POST">
+<a>Sound sensor 1 location: </a>
+<input type="text" value="" placeholder="Location" name="Location_1" autocomplete="off">
+<input type="submit" value="Submit">
+</form>
+<form action="/change" method="POST">
+<a>Sound sensor 2 location: </a>
+<input type="text" value="" placeholder="Location" name="Location_2" autocomplete="off">
+<input type="submit" value="Submit">
+</form>
+{% for file in listoffiles %}
+<a href="{{ file }}" Download><button><b>{{ file.split("/")[1] | lower }}</b></button></a><br />
+{% endfor %}
+</html>
