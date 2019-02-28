@@ -35,7 +35,7 @@ sound_levels = []
 while True:
 
     value_as_string = ser.readline().decode('utf-8').strip()
-    value_as_int = int(value_as_string)
+    value_as_int = float(value_as_string)
 
     i = i + 1
 
