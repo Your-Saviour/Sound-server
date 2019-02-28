@@ -25,7 +25,7 @@ def scale(x1, y1, x2, y2, x):
 import subprocess
 
 import serial
-ser = serial.Serial('/dev/ttyAMA0', 115200)  # open serial port
+ser = serial.Serial('/dev/ttyUSB0', 115200)  # open serial port
 print(ser.name)         # check which port was really used
 
 i = 0
