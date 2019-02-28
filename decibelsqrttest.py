@@ -25,7 +25,7 @@ def scale(x1, y1, x2, y2, x):
 import subprocess
 
 import serial
-ser = serial.Serial('/dev/cu.wchusbserial1410', 115200)  # open serial port
+ser = serial.Serial('/dev/ttyUSB0', 115200)  # open serial port
 print(ser.name)         # check which port was really used
 
 i = 0
@@ -60,7 +60,7 @@ while True:
                 bigdict[ifaceName] = addressesnew
         data_to_send = {'time' : date.isoformat(), 'db' : decibels, 'sensornum': 1, 'ip dict': bigdict}
         #print(data_to_send)
-        resp = requests.post('http://localhost:10001/add', json=data_to_send)
+        resp = requests.post('http://datacollection.site/add', json=data_to_send)
         #print(resp.text)
         i = 0
         sound_levels = []
