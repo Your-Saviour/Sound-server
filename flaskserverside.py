@@ -32,7 +32,7 @@ def changer():
 @app.route('/ipaddr')
 def ips():
     global ipdict
-    return ipdict
+    return str(ipdict)
 
 
 @app.route('/add', methods=['POST'])
