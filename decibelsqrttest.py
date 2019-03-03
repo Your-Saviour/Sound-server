@@ -36,6 +36,13 @@ sound_levels = []
 ser.readline()
 ser.readline()
 
+bigdict = {}
+for ifaceName in interfaces():
+    addresses = [i['addr'] for i in ifaddresses(ifaceName).setdefault(AF_INET, [{'addr':'No IP addr'}] )]
+    addressesnew = ', '.join(addresses)
+    if addressesnew != 'No IP addr':
+        bigdict[ifaceName] = addressesnew
+        
 while True:
 
     value_as_string = ser.readline().decode('utf-8').strip()
@@ -56,15 +63,9 @@ while True:
 
 
         date = datetime.now()
-        bigdict = {}
-        for ifaceName in interfaces():
-            addresses = [i['addr'] for i in ifaddresses(ifaceName).setdefault(AF_INET, [{'addr':'No IP addr'}] )]
-            addressesnew = ', '.join(addresses)
-            if addressesnew != 'No IP addr':
-                bigdict[ifaceName] = addressesnew
         data_to_send = {'time' : date.isoformat(), 'db' : decibels, 'sensornum': 1, 'ip dict': bigdict}
         #print(data_to_send)
-        resp = requests.post('http://datacollection.site/add', json=data_to_send)
+        resp = requests.post('http://34.73.136.205/add', json=data_to_send)
         #print(resp.text)
         i = 0
         sound_levels = []
