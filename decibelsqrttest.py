@@ -32,6 +32,8 @@ i = 0
 
 sound_levels = []
 
+ser.readline()
+
 while True:
 
     value_as_string = ser.readline().decode('utf-8').strip()
