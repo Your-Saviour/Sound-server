@@ -53,13 +53,12 @@ while True:
     sound_levels.append(value_as_int)
 
 
-    if i == 100:
+    if i == 1000:
         rms = calculate_rms(sound_levels) #* 0.275
         log_rms = math.log(rms)
-        print(log_rms)
 
         decibels = scale(3.6, 40, 5.6, 80, log_rms)
-        #print(datetime.now(), decibels, ' db')
+        print(datetime.now(), decibels, ' db')
 
 
         date = datetime.now()
