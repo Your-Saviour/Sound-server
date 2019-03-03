@@ -32,6 +32,8 @@ i = 0
 
 sound_levels = []
 
+#reads line before to get rid of junk
+ser.readline()
 ser.readline()
 
 while True:
