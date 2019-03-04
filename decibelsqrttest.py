@@ -9,7 +9,7 @@ def calculate_rms(sound_levels):
     for i in sound_levels:
         squared.append(i**2)
 
-    new = sum(squared)
+    new = sum(squared) / len(squared)
     e = math.sqrt(new)
     return(e)
 
@@ -25,7 +25,10 @@ def scale(x1, y1, x2, y2, x):
 import subprocess
 
 import serial
-ser = serial.Serial('/dev/ttyUSB0', 115200)  # open serial port
+try:
+    ser = serial.Serial('/dev/ttyUSB0', 115200)  # open serial port
+except Exception:
+    ser = serial.Serial('/dev/tty.wchusbserial1410', 115200)
 print(ser.name)         # check which port was really used
 
 i = 0
@@ -56,8 +59,9 @@ while True:
     if i == 1000:
         rms = calculate_rms(sound_levels) #* 0.275
         log_rms = math.log(rms)
+        print(log_rms)
 
-        decibels = scale(3.6, 40, 5.6, 80, log_rms)
+        decibels = scale(1.3, 40, 2.2, 70, log_rms)
         print(datetime.now(), decibels, ' db')
 
 
