@@ -1,5 +1,5 @@
 import csv
-from datetime import time
+from datetime import time, datetime, date
 from pprint import pprint
 
 LESSON_START_TIME = {
@@ -9,13 +9,15 @@ LESSON_START_TIME = {
      '3' : time(11,00),
      '4' : time(11,50),
      '5' : time(12,40),
-     '6' : time(1,50),
-     '7' : time(2,40)
+     '6' : time(13,50),
+     '7' : time(14,40)
 }
+
+
 
 lessons = []
 
-with open('timetableexport.csv') as csvfile:
+with open('timetableData.csv') as csvfile:
      reader = csv.DictReader(csvfile)
      for row in reader:
           lessons.append(row)
@@ -23,31 +25,63 @@ with open('timetableexport.csv') as csvfile:
 
 #pprint(lessons)
 
-def get_all_lessons_for_day(lessons, day):   
-     some_list = []
+def filter_lessons_by_day(lessons, day):   
+     output_list = []
      for lesson in lessons:
           if lesson['Day'] == day:
-               some_list.append(lesson)
+               output_list.append(lesson)
      
-     return some_list
+     return output_list
 
-#def get_lesson_number_from_time(t):
- #    for TIME in LESSON_START_TIME:
-  #        if TIME{T} < 
-   #  return TIME
+     
+def get_period_from_time(t):
+     if t < time(8,50):
+          return 'T'
+     elif t < time(9,40):
+          return '1'
+     elif t < time(11,00):
+          return '2'
+     elif t < time(11,50):
+          return '3'
+     elif t < time(12,40):
+          return '4'
+     elif t < time(13,50):
+          return '5'
+     elif t < time(14,40):
+          return '6'
+     elif t < time(15,30):
+          return '7'
 
-
-
-for TIME in LESSON_START_TIME:
-     if TIME{T} < time(8,50):
-          print('k')
-
-#print(get_lesson_number_from_time(time(9,00))) #should be '1'
-#print(get_lesson_number_from_time(time(3,00))) #should be '7'
+#print(get_period_from_time(time(9,00))) #should be '1'
+#print(get_period_from_time(time(15,00))) #should be '7'
 
 #def get_first_lesson_after_time(lessons, time)
 
+def filter_lessons_by_period(lessons, period):
+     period_list = []
+     for lesson in lessons:
+          if lesson['Lesson'] == period:
+               period_list.append(lesson)
+     
+     return period_list 
 
-wed_lessons = get_all_lessons_for_day(lessons, '3') #should return Wednesday's lessons
-pprint(wed_lessons)
 
+def filter_lessons_by_C4SL(lessons):
+     period_list = []
+     for lesson in lessons:
+          print(lesson)
+          if lesson['Room'].startswith('LS'):
+               period_list.append(lesson)
+     return period_list 
+     
+def get_lessons_from_datetime(d):
+     t = d.time()
+     weekday = str(d.isoweekday())
+     period = get_period_from_time(t)
+     
+     c4sl_lessons = filter_lessons_by_C4SL(lessons)
+     
+     days_lessons = filter_lessons_by_day(c4sl_lessons, weekday) #should return lessons for that day
+     return filter_lessons_by_period(days_lessons, period)
+
+pprint(get_lessons_from_datetime(datetime.now()))
