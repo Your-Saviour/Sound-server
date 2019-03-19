@@ -69,7 +69,6 @@ def filter_lessons_by_period(lessons, period):
 def filter_lessons_by_C4SL(lessons):
      period_list = []
      for lesson in lessons:
-          print(lesson)
           if lesson['Room'].startswith('LS'):
                period_list.append(lesson)
      return period_list 
